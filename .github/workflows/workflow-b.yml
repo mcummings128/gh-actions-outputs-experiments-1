@@ -1,0 +1,15 @@
+
+# TODO CHANGE THIS TO PROPERLY REFERENCE WORKFLOW-C's OUTPUT
+# TODO MORE COMMENTS
+on:
+  workflow_call:
+    outputs:
+      workflow-b-output:
+        description: "Workflow-B output"
+        value: ${{ jobs.get-workflow-c-output.outputs.workflow-c-output }}
+
+jobs:
+  get-workflow-c-output:
+    # TODO UPDATE WITH REF (SHA, TAG, ETC)
+    uses: ./.github/workflows/workflow-c.yml
+    
