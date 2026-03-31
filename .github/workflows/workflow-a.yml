@@ -4,6 +4,9 @@ on:
 
     workflow_dispatch:
 
+    # This is only here to get the workflow to show up in the UI. 
+    push:
+
 jobs:
     call-workflow-b:
         uses: ./.github/workflows/workflow-b.yml
