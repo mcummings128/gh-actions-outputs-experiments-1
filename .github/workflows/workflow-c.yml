@@ -15,6 +15,15 @@ jobs:
       # This references the step with the id of "set-hello". 
       workflow-c-output: ${{ steps.set-hello.outputs.workflow-c-output }}
     steps:
+
+      # Need to checkout repo for reusable workflows to reference one another. 
+      # In the workflow-a/b/c cadence, only workflow-c checks out the repo because it is the innermost workflow
+      # Since workflow-b references workflow-c, and workflow-a references workflow-b, workflow-a and workflow-b thus do not need to checkout the repo.
+      # workflow-c still functions within the context of workflow-a because workflow-a is the original workflow that started this cadence.
+      # workflow-a and workflow-b could also checkout the repo in other non-calling jobs, but actions/checkout would still have to be run in workflow-c because jobs execute on different runners.  
+      - name: 'Checkout repo'
+        uses: actions/checkout@v4
+
       # This step sets the output, thus the need for an id.
       - name: "Set workflow-c-output"
         id: set-hello
