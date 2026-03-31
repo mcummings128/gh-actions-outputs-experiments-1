@@ -1,18 +1,16 @@
 # TODO DESCRIBE! OUTERMOST
+
 on:
-  workflow_call:
-    outputs:
-      workflow-c-output:
-        description: "Workflow-C's output"
-        value: ${{ jobs.set-workflow-c-output.outputs.workflow-c-output }}
+
+    workflow_dispatch:
 
 jobs:
-  set-workflow-c-output:
-    runs-on: ubuntu-latest
-    outputs:
-      workflow-c-output: ${{ steps.set-hello.outputs.workflow-c-output }}
-    steps:
-      - name: "Set workflow-c output"
-        id: set-hello
-        run: |
-          echo "workflow-c-output=HELLO from workflow-c!" >> $GITHUB_OUTPUT
+    call-workflow-b:
+        uses: ./.github/workflows/workflow-b.yml
+
+    echo-output-from-b:
+        needs: call-workflow-b
+        runs-on: ubuntu-latest
+        steps:
+            - name: Echo output from workflow-b
+              run: echo "Output from workflow-b: ${{ needs.call-workflow-b.outputs.workflow-b-output }}"
