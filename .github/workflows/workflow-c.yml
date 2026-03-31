@@ -6,14 +6,14 @@ on:
     outputs:
       workflow-c-output:
         description: "Workflow-C output"
-        value: ${{ jobs.set-workflow-c-output.outputs.workflow-c-output }}
+        value: ${{ jobs.set-workflow-c-output-job.outputs.workflow-c-output }}
 
 jobs:
-  set-workflow-c-output:
+  set-workflow-c-output-job:
     runs-on: ubuntu-latest
     outputs:
       # This references the step with the id of "set-hello". 
-      workflow-c-output: ${{ steps.set-hello.outputs.workflow-c-output }}
+      workflow-c-output: ${{ steps.set-workflow-c-output-step.outputs.workflow-c-output }}
     steps:
 
       # Need to checkout repo for reusable workflows to reference one another. 
@@ -26,6 +26,6 @@ jobs:
 
       # This step sets the output, thus the need for an id.
       - name: "Set workflow-c-output"
-        id: set-hello
+        id: set-workflow-c-output-step
         run: |
           echo "workflow-c-output=HELLO from workflow-c!" >> $GITHUB_OUTPUT
