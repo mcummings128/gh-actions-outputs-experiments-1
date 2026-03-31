@@ -1,0 +1,18 @@
+# TODO DESCRIBE! OUTERMOST
+on:
+  workflow_call:
+    outputs:
+      workflow-c-output:
+        description: "Workflow-C's output"
+        value: ${{ jobs.set-workflow-c-output.outputs.workflow-c-output }}
+
+jobs:
+  set-workflow-c-output:
+    runs-on: ubuntu-latest
+    outputs:
+      workflow-c-output: ${{ steps.set-hello.outputs.workflow-c-output }}
+    steps:
+      - name: "Set workflow-c output"
+        id: set-hello
+        run: |
+          echo "workflow-c-output=HELLO from workflow-c!" >> $GITHUB_OUTPUT
