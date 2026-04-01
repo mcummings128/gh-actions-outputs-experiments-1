@@ -4,7 +4,7 @@ on:
 
     workflow_dispatch:
 
-    # This is only here to get the workflow to show up in the UI. 
+    # This is only here to get the workflow to show up in the UI initially.
     push:
 
 jobs:
