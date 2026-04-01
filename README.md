@@ -4,7 +4,7 @@ Experiments with Github Actions outputs in various scenarios
 # Outputs: Summary
 
 In Github Actions, outputs are used to pass small pieces of data from one job/workflow step to another (not necessarily the same workflow)
-TODO ELABORATE LENGTH, CONTENT, STEP SETS
+TODO ELABORATE LENGTH, CONTENT, STEP SETS >> GITHUB_OUTPUT
 
 # The outputs block
 
@@ -14,20 +14,47 @@ TODO ELABORATE
 
 The whole point of outputs is to set them in one place, and utilize them in another. While a workflow step is reponsible for setting the value of an output, it is common to say something like "this workflow/job/action sets this output" or "this step/workflow/job/action uses the output." Thus the use of "entities" in the header for this section--an "entity" can can mean a step, job, workflow, or composite action. 
 
-Each entity-relationship is described in the following list, along with the level of the outputs block(s). Finally, the process of how the output gets set to how it gets received/used is described.
+Each entity-relationship in the following list has its own subsection. Each subsection describes the level of the outputs block(s) as well as the process of how the output gets set to how it gets received/used is described.
 
 Outputs can be passed between the following entities:
-- <ins>Same workflow, same job</ins>: No need to define an outputs block. One step (with an id) sets the output, another step uses it (referencing that step's id) ex. `steps.<step-id>.outputs.output-name`
-- <ins>Same workflow, different jobs</ins>: The `outputs` block is defined at the job level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output. For example, say there is a 'Job A' whose id is 'job-a'. This job has a step that sets the value of an output. The id of this step is 'step-id'. The outputs block has an output named example-output, whose value is defined using the following syntax steps.step-id.outputs.example-output. A different job, 'Job B' can reference this output from Job A. Job B uses 'needs' to ensure Job A sets the output. To get the example-output value, Job B references Job A's output using needs.job-a.outputs.example-output
-- <ins>Reusable workflow and caller workflow</ins>:
+- Same workflow, same job
+- Same workflow, different jobs
+- Reusable workflow and caller workflow
+- Caller workflow and composite action
+
+## Same workflow, same job:
+
+### outputs block Location
+No need to define an outputs block--if the outputs are only to be used in the same job they are set, steps can refer to these outputs using <step-id> syntax (see below). 
+
+### Process
+1. A step (with an id) within the job sets the output,
+2. Another, further down step references the step's id to use the output (ex. `steps.<step-id>.outputs.output-name`)
+
+## Same workflow, different jobs
+
+### outputs block Location
+The `outputs` block is defined at the job level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output. 
+
+### Process
+
+To explain this process, imagine this example scenario: There is a 'Job A' whose id is 'job-a'. This job has a step that sets the value of an output. A different job, 'Job B' needs to reference this output. 
+
+1. 'job-a' has a step with the ID 'job-a-step-id'. The job-level `outputs` block has an output named example-output, whose value is defined using the following syntax steps.job-a-step-id.outputs.example-output. A different job, 'Job B' can reference this output from Job A. Job B uses 'needs' to ensure Job A sets the output. To get the example-output value, Job B references Job A's output using needs.job-a.outputs.example-output
+
+## Reusable workflow and caller workflow:
+
   In the reusable workflow, the `outputs` block is defined at the workflow level AND another at the job level. 
-  A step within a reusable workflow sets the output value. The job-level outputs block sets the value of its output by referencing the step id and output name (ex. steps.rw-step-id.outputs.example-rw-step-output). The workflow-level `outputs` block gets its value from the job-level output (ex. jobs.rw-job-id.outputs.example-rw-job-output). TODO MAPPING ELAB
+  A step within a reusable workflow sets the output value. The job-level `outputs` block sets the value of its output by referencing the step id and output name (ex. steps.rw-step-id.outputs.example-rw-step-output). The workflow-level `outputs` block gets its value from the job-level output (ex. jobs.rw-job-id.outputs.example-rw-job-output). TODO MAPPING ELAB
   Since calling a reusable workflow is strictly a one-step job, there must be a subsequent job
   in the caller workflow to access that output. The subsequent job will reference the "call reusable workflow" job using the job id, NOT the step id (because
   a job that calls a reusable workflow only has no steps). The syntax of that would be something like needs.cw-job-id.outputs.name-of-output. 'name-of-output' is the name of the workflow-level output in the reusable workflow
-- <ins>Caller workflow and composite action</ins>: In this context, the 'caller workflow' refers to a workflow that calls a composite action. A composite action
-  is essentially a bundle of steps that you include in the job. Outputs are defined at the top-level in the action.yml (An action.yml technically doesn't have a workflow-level, but you could view it as that). Since composite actions do not have a job (again, they're a bundle of job-agnostic steps), the outputs block references a step id directly (instead of having to reference a job) to get the output. 
-  In the caller workflow, a step (with an id) job calls the composite action. A future step in that caller workflow can use the step id to get the output (No outputs block needed, but you MUST reference the step that calls the composite action, not a step within the composite action). Another job in the caller workflow can reference this output as well using a job-level reference. This means that the job with the step that calls the composite action must have an outputs block defined at job-level.  
+
+## Caller workflow and composite action:
+
+ In this context, the 'caller workflow' refers to a workflow that calls a composite action. A composite action
+  is essentially a bundle of steps that you include in the job. Outputs are defined at the top-level in the action.yml (An action.yml technically doesn't have a workflow-level, but you could view it as that). Since composite actions do not have a job (again, they're a bundle of job-agnostic steps), the `outputs` block references a step id directly (instead of having to reference a job) to get the output. 
+  In the caller workflow, a step (with an id) job calls the composite action. A future step in that caller workflow can use the step id to get the output (No `outputs` block needed, but you MUST reference the step that calls the composite action, not a step within the composite action). Another job in the caller workflow can reference this output as well using a job-level reference. This means that the job with the step that calls the composite action must have an `outputs` block defined at job-level.  
 
 Chained Reusable Workflows
 
