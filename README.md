@@ -3,10 +3,21 @@ Experiments with Github Actions outputs in various scenarios
 
 # Outputs: Summary
 
-Pass data from one job/workflow step to another (not necessarily the same workflow.)
+In Github Actions, outputs are used to pass small pieces of data from one job/workflow step to another (not necessarily the same workflow)
+TODO ELABORATE LENGTH, CONTENT, STEP SETS
 
-Can pass outputs between:
-- Same workflow, same job: No need to define an outputs block. One step (with an id) sets the output, another uses it (referencing that step's id) ex. steps.step-id.outputs.output-name
+# The outputs block
+
+TODO ELABORATE
+
+# Passing Outputs between different entities
+
+The whole point of outputs is to set them in one place, and utilize them in another. While a workflow step is reponsible for setting the value of an output, it is common to say something like "this workflow/job/action sets this output" or "this step/workflow/job/action uses the output." Thus the use of "entities" in the header for this section--an "entity" can can mean a step, job, workflow, or composite action. 
+
+Each entity-relationship is described in the following list, along with the level of the outputs block(s). Finally, the process of how the output gets set to how it gets received/used is described.
+
+Outputs can be passed between the following entities:
+- Same workflow, same job: No need to define an outputs block. One step (with an id) sets the output, another step uses it (referencing that step's id) ex. `steps.<step-id>.outputs.output-name`
 - Same workflow, different jobs: The 'outputs' block is defined at the job level (of the job whose step(s) set an output). The 'outputs' block defines the value of the output by referencing the step that is setting the output. For example, say there is a 'Job A' whose id is 'job-a'. This job has a step that sets the value of an output. The id of this step is 'step-id'. The outputs block has an output named example-output, whose value is defined using the following syntax: steps.step-id.outputs.example-output. A different job, 'Job B' can reference this output from Job A. Job B uses 'needs' to ensure Job A sets the output. To get the example-output value, Job B references Job A's output using needs.job-a.outputs.example-output
 - Reusable workflow and caller workflow:
   In the reusable workflow, the 'outputs' block is defined at the workflow level AND another at the job level. 
@@ -24,8 +35,8 @@ Chained Reusable Workflows
 The cadence of calls is `workflow-a` --calls--> `workflow-b` --calls--> `workflow-c`
 
 `workflow-a` can get the output from `workflow-c` like so:
-1. `workflow-c` has both a job-level and workflow-level `outputs` block. A step in the job sets an output which the job-level `outputs` block referecnes. The workflow-level `outputs` block references the job-level reference so the output can be passed to a caller workflow.
-2. `workflow-b` has a job with the ID of 'b-job-1' set up to call `workflow-c`. A subsequent job in `workflow-b` 'b-job-2' has a job-level `outputs` block. 
+1. `workflow-c` has both a job-level and workflow-level `outputs` block. A job with the id `set-workflow-c-output-job` has a step that sets an output which the job-level `outputs` block references. The workflow-level `outputs` block references the job-level reference so the output can be passed to a caller workflow.
+2. `workflow-b` has a job with the ID of 'b-job-1' set up to call `workflow-c`. A subsequent job in `workflow-b` with the ID `b-job-2` has a job-level `outputs` block. 
 A workflow-level `outputs` block references the value from the job-level `outputs` block. `workflow-b` is also resuable (`workflow-a` calls it), thus the need for the workflow-level `outputs` block. Note `workflow-b` does NOT need a job-level `outputs` block because `workflow-c`'s `outputs` are already exposed at the job-level?
 b-job-2 has a step with the ID 'get-output-from-b-job-1' uses 'needs' and b-job-1's id to get the output from b-job-1. b-job-2's job-level `outputs` block will reference the step ID 'get-output-from-b-job-1' to get the value of the output. 
 3. `workflow-a` has a job with the ID 'call-`workflow-b`' which shockingly, calls `workflow-b`. `workflow-a` has another job which uses uses 'needs' and call-`workflow-b`'s id to get the output from call-`workflow-b`. 
