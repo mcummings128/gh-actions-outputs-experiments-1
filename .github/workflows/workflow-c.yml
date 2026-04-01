@@ -22,7 +22,7 @@ jobs:
       # workflow-c still functions within the context of workflow-a because workflow-a is the original workflow that started this cadence.
       # workflow-a and workflow-b could also checkout the repo in other non-calling jobs, but actions/checkout would still have to be run in workflow-c because jobs execute on different runners.  
       - name: 'Checkout repo'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # This step sets the output, thus the need for an id.
       - name: "Set workflow-c-output"
