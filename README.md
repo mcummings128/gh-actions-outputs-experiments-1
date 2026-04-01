@@ -17,7 +17,7 @@ The whole point of outputs is to set them in one place, and utilize them in anot
 Each entity-relationship is described in the following list, along with the level of the outputs block(s). Finally, the process of how the output gets set to how it gets received/used is described.
 
 Outputs can be passed between the following entities:
-- Same workflow, same job: No need to define an outputs block. One step (with an id) sets the output, another step uses it (referencing that step's id) ex. `steps.<step-id>.outputs.output-name`
+- <u>Same workflow, same job</u>: No need to define an outputs block. One step (with an id) sets the output, another step uses it (referencing that step's id) ex. `steps.<step-id>.outputs.output-name`
 - Same workflow, different jobs: The 'outputs' block is defined at the job level (of the job whose step(s) set an output). The 'outputs' block defines the value of the output by referencing the step that is setting the output. For example, say there is a 'Job A' whose id is 'job-a'. This job has a step that sets the value of an output. The id of this step is 'step-id'. The outputs block has an output named example-output, whose value is defined using the following syntax: steps.step-id.outputs.example-output. A different job, 'Job B' can reference this output from Job A. Job B uses 'needs' to ensure Job A sets the output. To get the example-output value, Job B references Job A's output using needs.job-a.outputs.example-output
 - Reusable workflow and caller workflow:
   In the reusable workflow, the 'outputs' block is defined at the workflow level AND another at the job level. 
