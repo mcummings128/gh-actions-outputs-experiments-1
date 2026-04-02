@@ -48,15 +48,18 @@ To explain this process, imagine this example scenario: There is a 'Job A' whose
 
 1. 'job-a' has a step with the ID 'job-a-step-id'. The job-level `outputs` block has an output named example-output, whose value is defined using the following syntax steps.job-a-step-id.outputs.example-output. 
 2. At the end of job-a, the outputs block is updated.
-3. 'job-b' can reference this output from Job A. Job B uses 'needs' to ensure Job A sets the output. To get the example-output value, Job B references Job A's output using needs.job-a.outputs.example-output
+3. 'job-b' can reference this output from job-a: it uses 'needs' to indicate it is dependent on job-a and thus wait until it completes. To get the example-output value, 'job-b' references job-a's output using needs.job-a.outputs.example-output
 
 ## From reusable workflow and caller workflow:
 
-  In the reusable workflow, the `outputs` block is defined at the workflow level AND another at the job level. 
-  A step within a reusable workflow sets the output value. The job-level `outputs` block sets the value of its output by referencing the step id and output name (ex. steps.rw-step-id.outputs.example-rw-step-output). The workflow-level `outputs` block gets its value from the job-level output (ex. jobs.rw-job-id.outputs.example-rw-job-output). TODO MAPPING ELAB
-  Since calling a reusable workflow is strictly a one-step job, there must be a subsequent job
-  in the caller workflow to access that output. The subsequent job will reference the "call reusable workflow" job using the job id, NOT the step id (because
-  a job that calls a reusable workflow only has no steps). The syntax of that would be something like needs.cw-job-id.outputs.name-of-output. 'name-of-output' is the name of the workflow-level output in the reusable workflow
+In the reusable workflow, the `outputs` block is defined at the workflow level AND another at the job level. It should be noted that the `outputs` block is a direct child of workflow_call.
+<ins>Caller Workflow</ins>
+1. The caller workflow executes a job that calls the reusable workflow. 
+2. Since a workflow-calling job does not and can not involve any steps, only a subsequent job(s) can reference the output. The subsequent job will use 'needs' to indicate it is dependent on the workflow-calling job and also reference the workflow-calling job using the job id. The syntax of that would be something like needs.<calling-workflow-job-id>.outputs.<name-of-output>. 'name-of-output' is the name of the workflow-level output in the reusable workflow.
+<ins>Reusable workflow</ins>
+1. A step (with an id) within a reusable workflow job sets the output value. 
+2. Once the job is complete, the job-level `outputs` block sets the value of its output by referencing the step id and output name (ex. steps.rw-step-id.outputs.example-rw-step-output). 
+3. The workflow-level `outputs` block gets its value from the job-level output (ex. jobs.rw-job-id.outputs.example-rw-job-output). It is important to emphasize this happens AFTER any job-level blocks are resolved. 
 
 ## Chained Reusable Workflows
 
