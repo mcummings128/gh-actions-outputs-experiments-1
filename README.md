@@ -46,7 +46,9 @@ The `outputs` block is defined at the job level (of the job whose step(s) set an
 
 To explain this process, imagine this example scenario: There is a 'Job A' whose id is 'job-a'. This job has a step that sets the value of an output. A different job, 'Job B' needs to reference this output. 
 
-1. 'job-a' has a step with the ID 'job-a-step-id'. The job-level `outputs` block has an output named example-output, whose value is defined using the following syntax steps.job-a-step-id.outputs.example-output. A different job, 'Job B' can reference this output from Job A. Job B uses 'needs' to ensure Job A sets the output. To get the example-output value, Job B references Job A's output using needs.job-a.outputs.example-output
+1. 'job-a' has a step with the ID 'job-a-step-id'. The job-level `outputs` block has an output named example-output, whose value is defined using the following syntax steps.job-a-step-id.outputs.example-output. 
+2. At the end of job-a, the outputs block is updated.
+3. 'job-b' can reference this output from Job A. Job B uses 'needs' to ensure Job A sets the output. To get the example-output value, Job B references Job A's output using needs.job-a.outputs.example-output
 
 ## From reusable workflow and caller workflow:
 
