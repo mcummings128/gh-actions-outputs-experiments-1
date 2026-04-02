@@ -67,9 +67,10 @@ and output name (ex. steps.rw-step-id.outputs.example-rw-step-output).
 
 ## Chained Reusable Workflows
 
-Passing outputs between chained reusable workflows can be a confusing thing to read through. This repository covers such a scenario to explain how 
+Passing outputs between chained reusable workflows can be a confusing thing to read through. This repository covers such a scenario to explain how using the workflows `workflow-a`, `workflow-b`, and `workflow-c`.
 
 `workflow-c` is reusable, and is called from `workflow-b`. `workflow-b` is also reusable, and is called by `workflow-a`.
+<br>
 The cadence of calls is `workflow-a --calls--> workflow-b --calls--> workflow-c`
 
 `workflow-a` can get the output from `workflow-c` like so:
