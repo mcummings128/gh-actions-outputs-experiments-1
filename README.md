@@ -56,7 +56,7 @@ In the reusable workflow, the `outputs` block is defined at the workflow level A
 <br><br>
 <ins>Caller Workflow</ins>
 1. The caller workflow executes a job that calls the reusable workflow. 
-2. Since a workflow-calling job does not and can not involve any steps, only a subsequent job(s) can reference the output. The subsequent job will use 'needs' to indicate it is dependent on the workflow-calling job and also reference the workflow-calling job using the job id. The syntax of that would be something like needs.<calling-workflow-job-id>.outputs.<name-of-output>. 'name-of-output' is the name of the workflow-level output in the reusable workflow.
+2. Since a workflow-calling job does not and can not involve any steps, only a subsequent job(s) can reference the output. The subsequent job will use 'needs' to indicate it is dependent on the workflow-calling job and also reference the workflow-calling job using the job id. The syntax of that would be something like `needs.<calling-workflow-job-id>.outputs.<name-of-output>`. `<name-of-output>` is the name of the workflow-level output in the reusable workflow.
 <br>
 <ins>Reusable workflow</ins>
 
