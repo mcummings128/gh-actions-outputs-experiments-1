@@ -3,7 +3,7 @@ description: "Composite action that sets an output named 'composite-action-outpu
 outputs:
   composite-action-output:
     description: "The output produced by the action"
-    value: ${{ steps.set-composite-action-output-step.outputs.composite-action-output }}
+    value: ${{ steps.shit.outputs.composite-action-output }}
 runs:
   using: "composite"
   steps:
