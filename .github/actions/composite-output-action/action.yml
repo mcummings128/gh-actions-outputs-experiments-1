@@ -8,6 +8,7 @@ runs:
   using: "composite"
   steps:
     - name: Set composite action output
+      id: shit
       shell: bash
       run: |
         echo "composite-action-output=Hello from composite action!" >> $GITHUB_OUTPUT

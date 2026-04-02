@@ -18,4 +18,4 @@ jobs:
                 message: "hello from composite-caller.yml"
             
             - name: Show composite action output
-              run: echo 'Composite action output --> ${{ steps.composite-calling-step.outputs.composite-action-output }}'
+              run: echo 'Composite action output --> ${{ steps.shit.outputs.composite-action-output }}'
