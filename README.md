@@ -72,6 +72,18 @@ and output name (ex. steps.rw-step-id.outputs.example-rw-step-output).
 
 ## Chained Reusable Workflows
 
+TODO MAKE THIS INTO A SENTENCE(i.e. caller calls a reusable workflow, which in turn calls another reusable workflow, ad infinitum)
+
+### outputs block Location
+
+Note: When considering reusable workflows, saying "the outputs block [is] at workflow-level" is slightly misleading--really, it means that the block is a direct child of workflow_call. In practice this is pretty much the same as being at workflow-level, since workflow_call is at workflow level. It's something to keep in the back of your head. 
+
+The location of the outputs block varies depending on the nesting level of the reusable workflow: 
+- The 'outermost' workflow does not need an outputs block if no outputs are being set. 
+- Any 'inner' reusable workflows will ALWAYS need a workflow-level outputs block. If the reusable workflow is setting an output to be used by other workflows, a job-level outputs block will be required as well. 
+
+### Process 
+
 Passing outputs between chained reusable workflows can be a confusing thing to read through. This repository covers such a scenario to explain how using the workflows `workflow-a`, `workflow-b`, and `workflow-c`.
 
 `workflow-c` is reusable, and is called from `workflow-b`. `workflow-b` is also reusable, and is called by `workflow-a`.
@@ -88,7 +100,7 @@ b-job-2 has a step with the ID 'get-output-from-b-job-1' uses 'needs' and b-job-
 
 ## Caller workflow and composite action:
 
- In this context, the 'caller workflow' refers to a workflow that calls a composite action. A composite action
+ Note: In this context, the 'caller workflow' refers to a workflow that calls a composite action. A composite action
   is essentially a bundle of steps that you include in the job. Outputs are defined at the top-level in the action.yml (An action.yml technically doesn't have a workflow-level, but you could view it as that). Since composite actions do not have a job (again, they're a bundle of job-agnostic steps), the `outputs` block references a step id directly (instead of having to reference a job) to get the output. 
   In the caller workflow, a step (with an id) job calls the composite action. A future step in that caller workflow can use the step id to get the output (No `outputs` block needed, but you MUST reference the step that calls the composite action, not a step within the composite action). Another job in the caller workflow can reference this output as well using a job-level reference. This means that the job with the step that calls the composite action must have an `outputs` block defined at job-level.  
 
