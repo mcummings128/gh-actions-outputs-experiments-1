@@ -16,4 +16,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Echo output from workflow-b
-              run: echo 'workflow-a says Output from workflow-b is ${{ needs.call-workflow-b.outputs.workflow-b-output }}'
+              run: echo 'workflow-a says Output from workflow-b is "${{ needs.call-workflow-b.outputs.workflow-b-output }}"'
