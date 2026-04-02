@@ -40,6 +40,7 @@ No need to define an outputs block--if the outputs are only to be used in the sa
 ## Same workflow, different jobs
 
 ### outputs block Location
+
 The `outputs` block is defined at the job level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output. 
 
 ### Process
@@ -52,8 +53,12 @@ To explain this process, imagine this example scenario: There is a 'Job A' whose
 
 ## From reusable workflow and caller workflow:
 
-In the reusable workflow, the `outputs` block is defined at the workflow level AND another at the job level. It should be noted that the `outputs` block is a direct child of workflow_call.
-<br><br>
+### outputs block Location
+
+The `outputs` block is defined at the job level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output. In the reusable workflow, the `outputs` block is defined at the workflow level AND another at the job level. It should be noted that the `outputs` block is a direct child of workflow_call.
+
+### Process
+
 <ins>Caller Workflow</ins>
 1. The caller workflow executes a job that calls the reusable workflow. 
 2. Since a workflow-calling job does not and can not involve any steps, only a subsequent job(s) can reference the output. The subsequent job will use 'needs' to indicate it is dependent on the workflow-calling job and also reference the workflow-calling job using the job id. The syntax of that would be something like `needs.<calling-workflow-job-id>.outputs.<name-of-output>`. `<name-of-output>` is the name of the workflow-level output in the reusable workflow.
@@ -74,7 +79,8 @@ Passing outputs between chained reusable workflows can be a confusing thing to r
 The cadence of calls is `workflow-a --calls--> workflow-b --calls--> workflow-c`
 
 `workflow-a` can get the output from `workflow-c` like so:
-1. `workflow-c` has both a job-level and workflow-level `outputs` block. A job with the id `set-workflow-c-output-job` has a step that sets an output which the job-level `outputs` block references. The workflow-level `outputs` block references the job-level reference so the output can be passed to a caller workflow.
+1. `workflow-c` has both a job-level and workflow-level `outputs` block. A job with the id `set-workflow-c-output-job` has a step that sets an output which the job-level `outputs` block references. 
+2. `workflow-c`'s workflow-level `outputs` block references the job-level reference so the output can be passed to a caller workflow.
 2. `workflow-b` has a job with the ID of 'b-job-1' set up to call `workflow-c`. A subsequent job in `workflow-b` with the ID `b-job-2` has a job-level `outputs` block. 
 A workflow-level `outputs` block references the value from the job-level `outputs` block. `workflow-b` is also resuable (`workflow-a` calls it), thus the need for the workflow-level `outputs` block. Note `workflow-b` does NOT need a job-level `outputs` block because `workflow-c`'s `outputs` are already exposed at the job-level?
 b-job-2 has a step with the ID 'get-output-from-b-job-1' uses 'needs' and b-job-1's id to get the output from b-job-1. b-job-2's job-level `outputs` block will reference the step ID 'get-output-from-b-job-1' to get the value of the output. 
