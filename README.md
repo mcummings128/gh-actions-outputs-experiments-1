@@ -70,7 +70,7 @@ and output name (ex. steps.rw-step-id.outputs.example-rw-step-output).
 Passing outputs between chained reusable workflows can be a confusing thing to read through. This repository covers such a scenario to explain how 
 
 `workflow-c` is reusable, and is called from `workflow-b`. `workflow-b` is also reusable, and is called by `workflow-a`.
-The cadence of calls is `workflow-a` --calls--> `workflow-b` --calls--> `workflow-c`
+The cadence of calls is `workflow-a --calls--> workflow-b --calls--> workflow-c`
 
 `workflow-a` can get the output from `workflow-c` like so:
 1. `workflow-c` has both a job-level and workflow-level `outputs` block. A job with the id `set-workflow-c-output-job` has a step that sets an output which the job-level `outputs` block references. The workflow-level `outputs` block references the job-level reference so the output can be passed to a caller workflow.
