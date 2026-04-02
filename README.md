@@ -60,11 +60,9 @@ In the reusable workflow, the `outputs` block is defined at the workflow level A
 <br>
 <ins>Reusable workflow</ins>
 
-1. A step (with an id) within a reusable workflow job sets the output value.
- 
+1. A step (with an id) within a reusable workflow job sets the output value. 
 2. Once the job is complete, the job-level `outputs` block sets the value of its output by referencing the step id 
 and output name (ex. steps.rw-step-id.outputs.example-rw-step-output). 
-
 3. The workflow-level `outputs` block gets its value from the job-level output (ex. jobs.rw-job-id.outputs.example-rw-job-output). It is important to emphasize this happens AFTER any job-level blocks are resolved. 
 
 ## Chained Reusable Workflows
