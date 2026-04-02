@@ -26,7 +26,7 @@ Outputs can be passed between the following entities:
 - Chained reusable workflows (i.e. caller calls a reusable workflow, which in turn calls another reusable workflow, ad infinitum)
 - Caller workflow and composite action
 
-* Regarding caller/reusable workflows, the subsection discussed here is specifically discussing how a reusable workflow can set an output, and how the caller can reference that output. The opposite (a caller workflow setting an output that the reusable workflow can use) is not discussed, because that is solved via defining inputs for the reusable workflow. 
+*Regarding caller/reusable workflows, the subsection discussed here is specifically discussing how a reusable workflow can set an output, and how the caller can reference that output. The opposite (a caller workflow setting an output that the reusable workflow can use) is not discussed, because that is solved via defining inputs for the reusable workflow. 
 
 ## Same workflow, same job:
 
