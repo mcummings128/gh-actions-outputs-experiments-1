@@ -72,7 +72,7 @@ and output name (ex. steps.rw-step-id.outputs.example-rw-step-output).
 
 ## Chained Reusable Workflows
 
-TODO MAKE THIS INTO A SENTENCE(i.e. caller calls a reusable workflow, which in turn calls another reusable workflow, ad infinitum)
+TODO MAKE THIS INTO A SENTENCEThe concept of a chained reusable workflow(i.e. caller calls a reusable workflow, which in turn calls another reusable workflow, ad infinitum)
 
 ### outputs block Location
 
