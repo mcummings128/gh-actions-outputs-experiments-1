@@ -14,8 +14,6 @@ jobs:
             - name: Call composite output action
               id: composite-calling-step
               uses: ./.github/actions/composite-output-action
-              with:
-                message: "hello from composite-caller.yml"
             
             - name: Show composite action output
               run: echo 'Composite action output --> ${{ steps.composite-calling-step.outputs.composite-action-output }}'
