@@ -20,8 +20,8 @@ jobs:
               id: set-multi-line-output
               run: |
                 echo "multi-line-output<<EOF" >> $GITHUB_OUTPUT
-                echo "line 1" >> $GITHUB_OUTPUT
-                echo "line 2" >> $GITHUB_OUTPUT
+                echo "This is the first line of a multi-line output." >> $GITHUB_OUTPUT
+                echo "This is the second line of a multi-line output." >> $GITHUB_OUTPUT
                 echo "EOF" >> $GITHUB_OUTPUT
 
             - name: Echo multi-line output that was set in the same job
