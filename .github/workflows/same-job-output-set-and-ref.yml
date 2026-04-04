@@ -33,4 +33,4 @@ jobs:
                 echo "EOF" >> $GITHUB_OUTPUT
 
             - name: Echo multi-line output that was set in the same job
-              run: echo -e 'Multi-line Output from the same job is ${YELLOW2}${{ steps.set-multi-line-output.outputs.multi-line-output }}${END_COLOR2}'
+              run: echo -e "Multi-line output from the same job is ${YELLOW2}${{ steps.set-multi-line-output.outputs.multi-line-output }}${END_COLOR2}"
