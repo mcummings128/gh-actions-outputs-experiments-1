@@ -19,10 +19,12 @@ jobs:
               run: echo 'single-line-output=This single-line output is set and referenced in the same workflow job!' >> $GITHUB_OUTPUT
             
             - name: Printf single-line output that was set in the same job
+              # You don't need to set an output as an environment variable to reference it in the same job, this just demonstrates that it can be done.
               env: 
-                hey: ${{ steps.set-output.outputs.single-line-output }}
-              # printf is another way to output statements. 
-              run: printf "Output from the same job is ${YELLOW}%s${END_COLOR}\n" "${{env.hey}}"
+                above-output: ${{ steps.set-output.outputs.single-line-output }}
+              # printf is another way to output statements. The %s is a placeholder for a string, which is essentially an argument. 
+              # The second string must be in its own set of quotes to be properly read as an argument. 
+              run: printf "Output from the same job is ${YELLOW}%s${END_COLOR}\n" "${{env.above-output}}"
             
             - name: Set multi-line output
               id: set-multi-line-output
@@ -32,6 +34,15 @@ jobs:
                 echo "This is the second line of a multi-line output." >> $GITHUB_OUTPUT
                 echo "EOF" >> $GITHUB_OUTPUT
 
-            - name: Echo multi-line output that was set in the same job
-            #   run: echo -e "Multi-line output from the same job is ${YELLOW2}${{ steps.set-multi-line-output.outputs.multi-line-output }}${END_COLOR2}"
-              run: printf "Multi-line output from the same job is ${YELLOW2}%s${END_COLOR2}\n" "${{ steps.set-multi-line-output.outputs.multi-line-output }}"
+            - name: Printf multi-line output that was set in the same job
+              run: |
+                printf "Multi-line output from the same job is: \n" 
+                # Take the multi-line output and use a pipe to use it as input for the while loop
+                # We do printf "%s" "<output>" instead of just printf "<output>" to preserve all characters the multi-line output literally. The other way risks things like %, \, and - being interpreted incorrectly.
+                # The while loop is needed to preserve the multi-line formatting when printing the output.
+                # IFS is set to null to preserve leading/trailing whitespace and to prevent collapsing of consecutive whitespace.
+                # read splits the input via \n, it always considers \n as a delimiter. The -r flag prevents lets backslashes be treated as literals (not as escape characters). 
+                # Each delimited string is known as 'line'
+                printf "%s\n" "${{ steps.set-multi-line-output.outputs.multi-line-output }}" | while IFS= read -r line; do
+                  printf "${YELLOW2}%s${END_COLOR2}\n" "$line"
+                done
