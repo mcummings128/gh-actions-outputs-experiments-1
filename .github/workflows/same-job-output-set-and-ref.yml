@@ -1,0 +1,28 @@
+on:
+
+    workflow_dispatch:
+
+    # This is only here to get the workflow to show up in the UI initially.
+    push:
+
+jobs:
+    outputs-between-same-job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Set single-line output
+              id: set-output
+              run: echo 'single-line-output=This single-line output is set and referenced in the same workflow job!' >> $GITHUB_OUTPUT
+            
+            - name: Echo single-line output that was set in the same job
+              run: echo 'Output from the same job is "${{ steps.set-output.outputs.single-line-output }}"'
+            
+            - name: Set multi-line output
+              id: set-multi-line-output
+              run: |
+                echo "multi-line-output<<EOF" >> $GITHUB_OUTPUT
+                echo "line 1" >> $GITHUB_OUTPUT
+                echo "line 2" >> $GITHUB_OUTPUT
+                echo "EOF" >> $GITHUB_OUTPUT
+
+            - name: Echo multi-line output that was set in the same job
+              run: echo 'Multi-line Output from the same job is "${{ steps.set-multi-line-output.outputs.multi-line-output }}"'
