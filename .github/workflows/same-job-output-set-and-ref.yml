@@ -19,7 +19,7 @@ jobs:
             - name: Echo single-line output that was set in the same job
               env: 
                 hey: ${{ steps.set-output.outputs.single-line-output }}
-              run: printf 'Output from the same job is ${YELLOW}$hey${END_COLOR}'
+              run: printf 'Output from the same job is ${YELLOW}${{env.hey}}${END_COLOR}'
             
             - name: Set multi-line output
               id: set-multi-line-output
