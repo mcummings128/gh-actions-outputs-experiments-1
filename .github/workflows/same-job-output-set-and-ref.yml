@@ -14,7 +14,7 @@ jobs:
         steps:
             - name: Set single-line output
               id: set-output
-              run: echo 'single-line-output=This single-line output is set and referenced in the same workflow job!' >> $GITHUB_OUTPUT
+              run: echo -e 'single-line-output=This single-line output is set and referenced in the same workflow job!' >> $GITHUB_OUTPUT
             
             - name: Echo single-line output that was set in the same job
               run: echo 'Output from the same job is ${YELLOW}${{ steps.set-output.outputs.single-line-output }}${END_COLOR}'
@@ -28,4 +28,4 @@ jobs:
                 echo "EOF" >> $GITHUB_OUTPUT
 
             - name: Echo multi-line output that was set in the same job
-              run: echo 'Multi-line Output from the same job is ${YELLOW}${{ steps.set-multi-line-output.outputs.multi-line-output }}${END_COLOR}'
+              run: echo -e 'Multi-line Output from the same job is ${YELLOW}${{ steps.set-multi-line-output.outputs.multi-line-output }}${END_COLOR}'
