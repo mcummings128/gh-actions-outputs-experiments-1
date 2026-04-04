@@ -17,7 +17,9 @@ jobs:
               run: echo 'single-line-output=This single-line output is set and referenced in the same workflow job!' >> $GITHUB_OUTPUT
             
             - name: Echo single-line output that was set in the same job
-              run: printf "Output from the same job is ${YELLOW}${{ steps.set-output.outputs.single-line-output }}${END_COLOR}"
+              env: 
+                hey: ${{ steps.set-output.outputs.single-line-output }}
+              run: printf 'Output from the same job is ${YELLOW}$hey${END_COLOR}'
             
             - name: Set multi-line output
               id: set-multi-line-output
