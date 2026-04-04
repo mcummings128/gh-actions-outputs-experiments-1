@@ -11,7 +11,7 @@ To set an output, you must do so in a job step (or a script the step calls). the
 Outputs are generally single-lined. 
 <br>
 However, setting a multi-lined output is possible as well.
-TODO ELABORATE LENGTH, CONTENT, EXAMPLES
+TODO ELABORATE LENGTH, CONTENT, EXAMPLES OF OUTPUTS
 
 # The outputs block
 
