@@ -4,7 +4,14 @@ Experiments with Github Actions outputs in various scenarios
 # Outputs: Summary
 
 In Github Actions, outputs are used to pass small pieces of data from one job/workflow step to another (not necessarily the same workflow)
-TODO ELABORATE LENGTH, CONTENT, STEP SETS >> GITHUB_OUTPUT
+
+To set an output, you must do so in a job step (or a script the step calls). the following syntax is used
+```echo 'output_name=some output value'```
+
+Outputs are generally single-lined. 
+<br>
+However, setting a multi-lined output is possible as well.
+TODO ELABORATE LENGTH, CONTENT, EXAMPLES
 
 # The outputs block
 
