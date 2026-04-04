@@ -10,15 +10,18 @@ jobs:
         runs-on: ubuntu-latest
         env:
             YELLOW: '\033[33m'
+            YELLOW2: $'\033[33m'
             END_COLOR: '\033[0m'
+            END_COLOR2: $'\033[0m'
         steps:
             - name: Set single-line output
               id: set-output
               run: echo 'single-line-output=This single-line output is set and referenced in the same workflow job!' >> $GITHUB_OUTPUT
             
-            - name: Echo single-line output that was set in the same job
+            - name: Printf single-line output that was set in the same job
               env: 
                 hey: ${{ steps.set-output.outputs.single-line-output }}
+              # printf is another way to output statements. 
               run: printf "Output from the same job is ${YELLOW}%s${END_COLOR}\n" "${{env.hey}}"
             
             - name: Set multi-line output
@@ -30,4 +33,4 @@ jobs:
                 echo "EOF" >> $GITHUB_OUTPUT
 
             - name: Echo multi-line output that was set in the same job
-              run: echo -e 'Multi-line Output from the same job is ${YELLOW}${{ steps.set-multi-line-output.outputs.multi-line-output }}${END_COLOR}'
+              run: echo -e 'Multi-line Output from the same job is ${YELLOW2}${{ steps.set-multi-line-output.outputs.multi-line-output }}${END_COLOR2}'
