@@ -9,8 +9,8 @@ jobs:
     outputs-between-same-job:
         runs-on: ubuntu-latest
         env:
-            YELLOW: "\033[33m"
-            END_COLOR: "\033[0m"
+            YELLOW: '\033[33m'
+            END_COLOR: '\033[0m'
         steps:
             - name: Set single-line output
               id: set-output
