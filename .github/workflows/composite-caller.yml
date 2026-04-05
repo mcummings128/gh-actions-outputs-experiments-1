@@ -6,6 +6,10 @@ on:
 jobs:
     call-composite-action:
         runs-on: ubuntu-latest
+        # This job-level outputs block is so that the second job can reference it
+        # We know the name of the step output to reference by looking at the action.yml of the composite action that is being called
+        outputs:
+            composite-action-output: ${{ steps.composite-calling-step.outputs.composite-action-output }}
         steps:
             
             - name: 'Checkout repo'
@@ -15,5 +19,12 @@ jobs:
               id: composite-calling-step
               uses: ./.github/actions/composite-output-action
             
-            - name: Show composite action output
+            - name: Show composite action output (same job)
               run: echo 'Composite action output --> ${{ steps.composite-calling-step.outputs.composite-action-output }}'
+
+    ref-composite-action-output:
+        needs: call-composite-action
+        runs-on: ubuntu-latest
+        steps:
+            - name: Show composite action output (different job)
+              run: echo 'Composite action output from a different job --> ${{ needs.call-composite-action.outputs.composite-action-output }}'

@@ -1,0 +1,23 @@
+on:
+
+    workflow_dispatch:
+
+    # This is only here to get the workflow to show up in the UI initially.
+    push:
+
+jobs:
+    job-that-sets-output:
+        runs-on: ubuntu-latest
+        outputs:
+            job-output: ${{ steps.set-output-step.outputs.step-output }}
+        steps:
+            - name: Set output 
+              id: set-output-step
+              run: echo 'step-output=This output was set in "job-that-sets-output"!' >> $GITHUB_OUTPUT
+    
+    job-that-uses-output:
+        needs: job-that-sets-output
+        runs-on: ubuntu-latest
+        steps:
+            - name: Echo output from 'job-that-sets-output'
+              run: echo 'The output from job-that-sets-output is "${{ needs.job-that-sets-output.outputs.job-output }}"'
