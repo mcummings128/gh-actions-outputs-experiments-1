@@ -3,10 +3,18 @@ Experiments with Github Actions outputs in various scenarios
 
 # Outputs: Summary
 
-In Github Actions, outputs are used to pass small pieces of data from one job/workflow step to another (not necessarily the same workflow)
+In Github Actions, outputs are used to pass small pieces of data from one job/workflow step to another (not necessarily the same workflow). It's important to note that outputs are strings
+
+# Setting an output
+
 
 To set an output, you must do so in a job step (or a script the step calls). the following syntax is used
-```echo 'output_name=some output value'```
+```echo 'output_name=some output value' >> $GITHUB_OUTPUT```
+
+`GITHUB_OUTPUT` must be written to in order to properly set the output.
+
+## More details about GITHUB_OUTPUT (Optional)
+`GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's an environment file that is technically different (i.e. its path is different) per step. Writing to GITHUB_OUTPUT is considered a workflow command, just like writing to GITHUB_ENV.  
 
 Outputs are generally single-lined. 
 <br>
