@@ -16,6 +16,7 @@ Outputs can consist of one-line (most commonly), but can also be a multi-lined s
 Most outputs are single-lined.  
 
 The following syntax is used to set a single-line output:
+<br>
 ```echo 'output_name=some output value' >> $GITHUB_OUTPUT```
 
 # Multi-lined output
