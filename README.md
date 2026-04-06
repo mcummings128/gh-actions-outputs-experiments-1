@@ -77,7 +77,7 @@ No need to define an outputs block--if the outputs are only to be used in the sa
 
 ## Same workflow, different jobs
 
-### outputs block Location
+### `outputs` block Location
 
 The `outputs` block is defined at the job level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output. 
 
