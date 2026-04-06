@@ -21,6 +21,10 @@ The following syntax is used to set a single-line output:
 
 # Multi-lined output
 
+Multi-lined outputs can be set by using EOF (End of File) TODO ELABORATE. Using EOF is possible across all types of Github-hosted runners (ubuntu-latest (Bash), Windows (Powershell), and macOS (bash) )
+
+The below syntax shows how to set a multi-line runner from a Bash perspective:
+
 ```
 echo "multi-line-output<<EOF" >> $GITHUB_OUTPUT
 echo "This is the first line of a multi-line output." >> $GITHUB_OUTPUT
