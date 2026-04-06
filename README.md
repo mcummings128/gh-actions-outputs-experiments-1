@@ -7,18 +7,36 @@ In Github Actions, outputs are used to pass small pieces of data from one job/wo
 
 # Setting an output
 
+To set an output, you must do so in a job step (or a script the step calls). An output is set by writing to GITHUB_OUTPUT. (You can see more details about the underlying surrounding logic related to GITHUB_OUTPUT in the **__More details about GITHUB_OUTPUT (Optional)__** section.)
 
-To set an output, you must do so in a job step (or a script the step calls). the following syntax is used
+Outputs can consist of one-line (most commonly), but can also be a multi-lined string. Refer to the corresponding subections for details on how to set each.
+
+# Single-lined output
+
+Most outputs are single-lined.  
+
+The following syntax is used to set a single-line output:
 ```echo 'output_name=some output value' >> $GITHUB_OUTPUT```
 
-`GITHUB_OUTPUT` must be written to in order to properly set the output.
+# Multi-lined output
 
+```
+echo "multi-line-output<<EOF" >> $GITHUB_OUTPUT
+echo "This is the first line of a multi-line output." >> $GITHUB_OUTPUT
+echo "This is the second line of a multi-line output." >> $GITHUB_OUTPUT
+echo "EOF" >> $GITHUB_OUTPUT
+```
 ## More details about GITHUB_OUTPUT (Optional)
-`GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's an environment file that is technically different (i.e. its path is different) per step. Writing to GITHUB_OUTPUT is considered a workflow command, just like writing to GITHUB_ENV.  
 
-Outputs are generally single-lined. 
-<br>
-However, setting a multi-lined output is possible as well.
+`GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's a runner-provided environment file that is technically different (i.e. its path is different) per step. Writing to GITHUB_OUTPUT is considered a workflow command, just like writing to GITHUB_ENV. Workflow commands are executed via using `echo` or by writing to a file--for GITHUB_OUTPUT, it's obviously the latter. 
+
+`GITHUB_OUTPUT` is more like a vector of how outputs get stored/referencable in outputs syntax. It's a bit hard to find sources on this (try the actions/runner repo), but generally what happens is that:
+1. The GITHUB_OUTPUT file is written to
+2. After the step finishes, the runner reads the file
+3. `key=value` pairs are parsed and converted into step outputs syntax (`steps.<step-id>.outputs.<name-of-output>`)
+
+
+
 TODO ELABORATE LENGTH, CONTENT, EXAMPLES OF OUTPUTS
 
 # The outputs block
