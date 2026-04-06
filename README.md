@@ -21,7 +21,7 @@ The following syntax is used to set a single-line output:
 
 # Multi-lined output
 
-Multi-lined outputs can be set by using EOF (End of File) TODO ELABORATE. Using EOF is possible across all types of Github-hosted runners (ubuntu-latest (Bash), Windows (Powershell), and macOS (bash) )
+Multi-lined outputs can be set by treating the multi-line string as a here document (a piece of code that gets treated as if it were input/a file). Combined with EOF (End of File) syntax one can feed the multi-line string to GITHUB_OUTPUT. Using EOF is possible across all types of Github-hosted runners (ubuntu-latest (Bash), Windows (Powershell), and macOS (bash) )
 
 The below syntax shows how to set a multi-line runner from a Bash perspective:
 
