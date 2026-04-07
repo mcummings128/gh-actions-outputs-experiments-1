@@ -68,7 +68,7 @@ Outputs can be passed between the following entities:
 
 ## Same workflow, same job:
 
-### outputs block Location
+### `outputs` block Location
 No need to define an outputs block--if the outputs are only to be used in the same job they are set, steps can refer to these outputs using <step-id> syntax (see below). 
 
 ### Process
@@ -91,7 +91,7 @@ To explain this process, imagine this example scenario: There is a 'Job A' whose
 
 ## From reusable workflow and caller workflow:
 
-### outputs block Location
+### `outputs` block Location
 
 The `outputs` block is defined at the job level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output. In the reusable workflow, the `outputs` block is defined at the workflow level AND another at the job level. It should be noted that the `outputs` block is a direct child of workflow_call.
 
@@ -112,7 +112,7 @@ and output name (ex. steps.rw-step-id.outputs.example-rw-step-output).
 
 The concept of a chained reusable workflow is resuable workflows being called in succession (i.e. caller calls a reusable workflow, which in turn calls another reusable workflow, ad infinitum)
 
-### outputs block Location
+### `outputs` block Location
 
 Note: When considering reusable workflows, saying "the outputs block [is] at workflow-level" is slightly misleading--really, it means that the block is a direct child of workflow_call. In practice this is pretty much the same as being at workflow-level, since workflow_call is at workflow level. It's something to keep in the back of your head. 
 
@@ -139,6 +139,23 @@ b-job-2 has a step with the ID 'get-output-from-b-job-1' uses 'needs' and b-job-
 ## Caller workflow and composite action:
 
 Note: In this context, the 'caller workflow' refers to a workflow that calls a composite action. 
-A composite action is essentially a bundle of steps that you include in the job. Outputs are defined at the top-level in the action.yml (An action.yml technically doesn't have a workflow-level, but you could view it as that). Since composite actions do not have a job (again, they're a bundle of job-agnostic steps), the `outputs` block references a step id directly (instead of having to reference a job) to get the output. 
-In the caller workflow, a step (with an id) job calls the composite action. A future step in that caller workflow can use the step id to get the output (No `outputs` block needed, but you MUST reference the step that calls the composite action, not a step within the composite action). Another job in the caller workflow can reference this output as well using a job-level reference. This means that the job with the step that calls the composite action must have an `outputs` block defined at job-level.  
+
+A composite action is essentially a bundle of steps that you include in the job. Those steps are stored in the action.yml file
+
+### `outputs` block Location
+
+Outputs are defined at the top-level in the action.yml (An action.yml technically doesn't have a workflow-level, but you could view it as that). 
+
+### Process
+
+TODO ENUMERATE
+
+Since composite actions do not have a job (again, they're a bundle of job-agnostic steps), the `outputs` block references a step id directly (instead of having to reference a job) to get the output. 
+
+1. In the caller workflow, a step (with an id) job calls the composite action. 
+2. In the composite action, a step (with an id) sets an output.
+3. In the composite action, the top-level outputs block takes the value from the composite action step.
+4. In the caller workflow:
+- A future step can reference the step id that called the composite action to get the output (No `outputs` block needed, but you MUST reference the step that calls the composite action, NOT a step within the composite action). 
+- Another job in the caller workflow can reference this output as well using a job-level reference. This means that the job with the step that calls the composite action must have an `outputs` block defined at job-level.  
 
