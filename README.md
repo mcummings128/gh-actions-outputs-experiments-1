@@ -46,8 +46,25 @@ TODO ELABORATE LENGTH, CONTENT, EXAMPLES OF OUTPUTS
 
 # The outputs block
 
-TODO ELABORATE
-TODO NEEDED FOR MOST OUTPUT PASSING EXCEPT FOR STEPS IN THE SAME JOB
+The outputs block is used to define the outputs. It's need when passing outputs almost anywhere, except when passing outputs between steps in the same workflow job. When utilized, the outputs block can be present at job-level, workflow-level/top-level, or both depending on the context. 
+
+The outputs block is a map/dictionary/hash that is un-nested--that is, all key value pairs are at the top level.
+For example:
+
+```
+example-job:
+    outputs:
+        example-output-1: ${{steps.<step-id>.outputs.<output-name>}}
+        example-output-2: ${{steps.<step-id>.outputs.<output-name>}}
+```
+
+The above is an example of a job-level outputs block. Witness how nothing is nested, as well as some other points related to the syntax.
+
+## At job level
+
+When the outputs block is defined at the job-level (see previous section for an example)
+
+
 OUTPUTS BLOCK NOT!! UPDATED DYNAMICALLY, UPDATED AT END OF JOB (EXPRESSIONS INCLUDING ${{}} ARE EVALUATED ON THE RUNNER AT THE END OF EACH JOB)
 TODO SECRETS 
 
