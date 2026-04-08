@@ -1,5 +1,5 @@
 # gh-actions-outputs-experiments
-Experiments with Github Actions outputs in various scenarios
+Experiments with Github Actions outputs in various scenarios. This repository is a supplement to the article 'TODO ARTICLE NAME' TODO LINK
 
 # Outputs: Summary
 
