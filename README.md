@@ -13,7 +13,7 @@ An output is set by writing to `GITHUB_OUTPUT` using `echo` (or other commands t
 
 Outputs can consist of one-line (most commonly), but can also be a multi-lined string. Refer to the corresponding subections for details on how to set each.
 
-# Single-lined output
+# Single-line output
 
 Most outputs are single-lined.  
 
@@ -25,9 +25,9 @@ The following syntax is used to set a single-line output (pay particular attenti
 ```
 
 
-# Multi-lined output
+# Multi-line output
 
-Multi-lined outputs can be set by treating the multi-line string as a here document (a piece of code that gets treated as if it were input/a file). Combined with EOF (End of File) syntax one can feed the multi-line string to `GITHUB_OUTPUT`. Using EOF is possible across all types of Github-hosted runners (`ubuntu-*` (Bash), `windows-*` (Powershell), and `macos-*` (Mac) (bash) )
+Multi-line outputs can be set by treating the multi-line string as a here document (a piece of code that gets treated as if it were input/a file). Combined with EOF (End of File) syntax one can feed the multi-line string to `GITHUB_OUTPUT`. Using EOF is possible across all types of Github-hosted runners (`ubuntu-*` (Bash), `windows-*` (Powershell), and `macos-*` (Mac) (bash) )
 
 The below syntax shows how to set a multi-line runner from a Bash perspective:
 
