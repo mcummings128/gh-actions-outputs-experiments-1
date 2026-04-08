@@ -7,7 +7,9 @@ In Github Actions, outputs are used to pass small pieces of data from one job/wo
 
 # Setting an output
 
-To set an output, you must do so in a job step (or a script the step calls). An output is set by writing to GITHUB_OUTPUT. (You can see more details about the underlying surrounding logic related to GITHUB_OUTPUT in the **__More details about GITHUB_OUTPUT (Optional)__** section.)
+To set an output, you must do so in a job step (or a script the step calls). Generally, that step must have an `id` set (details for this explained in **__The outputs block__** section). 
+
+An output is set by writing to `GITHUB_OUTPUT` using `echo` (or other commands that write to a file, like `printf`) (You can see more details about the underlying surrounding logic related to `GITHUB_OUTPUT` in the **__More details about GITHUB_OUTPUT (Optional)__** section.)
 
 Outputs can consist of one-line (most commonly), but can also be a multi-lined string. Refer to the corresponding subections for details on how to set each.
 
@@ -15,13 +17,17 @@ Outputs can consist of one-line (most commonly), but can also be a multi-lined s
 
 Most outputs are single-lined.  
 
-The following syntax is used to set a single-line output:
+The following syntax is used to set a single-line output (pay particular attention to the `run` line):
 <br>
-```echo 'output_name=some output value' >> $GITHUB_OUTPUT```
+```- name: Set output
+     id: set-output-step
+     run: echo 'output-name=some output value' >> $GITHUB_OUTPUT
+```
+
 
 # Multi-lined output
 
-Multi-lined outputs can be set by treating the multi-line string as a here document (a piece of code that gets treated as if it were input/a file). Combined with EOF (End of File) syntax one can feed the multi-line string to GITHUB_OUTPUT. Using EOF is possible across all types of Github-hosted runners (ubuntu-latest (Bash), Windows (Powershell), and macOS (bash) )
+Multi-lined outputs can be set by treating the multi-line string as a here document (a piece of code that gets treated as if it were input/a file). Combined with EOF (End of File) syntax one can feed the multi-line string to `GITHUB_OUTPUT`. Using EOF is possible across all types of Github-hosted runners (`ubuntu-*` (Bash), `windows-*` (Powershell), and `macos-*` (Mac) (bash) )
 
 The below syntax shows how to set a multi-line runner from a Bash perspective:
 
@@ -48,6 +54,10 @@ TODO ELABORATE LENGTH, CONTENT, EXAMPLES OF OUTPUTS
 
 The outputs block is used to define the outputs. It's need when passing outputs almost anywhere, except when passing outputs between steps in the same workflow job. When utilized, the outputs block can be present at job-level, workflow-level/top-level, or both depending on the context. 
 
+It's important to note the outputs block gets its values at the __end__ of a job, not during/incrementally. While knowing this distinction usually isn't necessary during most output setup, it's good to remember when thinking about how outputs get set conceptually.
+
+## General structure
+
 The outputs block is a map/dictionary/hash that is un-nested--that is, all key value pairs are at the top level.
 For example:
 
@@ -58,15 +68,34 @@ example-job:
         example-output-2: ${{steps.<step-id>.outputs.<output-name>}}
 ```
 
-The above is an example of a job-level outputs block. Witness how nothing is nested, as well as some other points related to the syntax.
+The above is an example of a job-level outputs block. Witness how nothing is nested, as well as the general syntax.
 
 ## At job level
 
-When the outputs block is defined at the job-level (see previous section for an example)
+When the outputs block is defined at the job-level (see previous section for an example), it will always reference a step id. The step id is used to point to where the output is getting its value from. 
 
+Consider the following line:
+```example-output-1: ${{steps.<step-id>.outputs.<output-name>}}```
 
-OUTPUTS BLOCK NOT!! UPDATED DYNAMICALLY, UPDATED AT END OF JOB (EXPRESSIONS INCLUDING ${{}} ARE EVALUATED ON THE RUNNER AT THE END OF EACH JOB)
-TODO SECRETS 
+Note: <> used to signify placeholder values. You don't use <> in actual references.
+This is saying "set a job-level output named 'example-output-1' to the value being written to GITHUB_OUTPUT in the step with the id <step-id>. The step may be setting multiple outputs at once, so be sure to set example-output-1 to the value <output-name> is being set to in the step"
+
+For example, say you had a step with the `id` `set-ex-output-1`
+```- name: Set output
+     id: set-ex-output-1
+     run: echo "example-output-1=this is example-output-1\'s value value" >> $GITHUB_OUTPUT
+```
+
+Additionally, imagine the job-level outputs block has a line that looks like this:
+```example-output-1: ${{steps.set-ex-output-1.outputs.example-output-1}}```
+
+Putting those lines together, to define the job-level output named example-output-1, the outputs block "looks" for the step with the id set-ex-output-1, then sees that it has a line where the output example-output-1 is written to GITHUB_OUTPUT. In other words, the step-level output gets mapped to the job-level output.
+
+You'll notice that the output name example-output-1 is the same at both the step-level and job-level. While that might seem confusing at first glance, this is actually a common approach. Keeping the naming consistent in this case actually makes the output setting/passing easier to follow. If desired, the outputs can be named differently if need be. If you wanted the step-level output name to be different, you would change it in the echo statement, and reflect that change in the corresponding reference.
+
+## At workflow-level (top-level)
+
+TODO FILL THIS IN
 
 # Passing Outputs between different entities
 
