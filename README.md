@@ -29,7 +29,7 @@ The following syntax is used to set a single-line output (pay particular attenti
 
 Multi-line outputs can be set by treating the multi-line string as a here document (a piece of code that gets treated as if it were input/a file). Combined with EOF (End of File) syntax one can feed the multi-line string to `GITHUB_OUTPUT`. Using EOF is possible across all types of Github-hosted runners (`ubuntu-*` (Bash), `windows-*` (Powershell), and `macos-*` (Mac) (bash) )
 
-The below syntax shows how to set a multi-line runner from a Bash perspective:
+The below syntax shows how to set a multi-line output from a Bash perspective:
 
 ```
 echo "multi-line-output<<EOF" >> $GITHUB_OUTPUT
