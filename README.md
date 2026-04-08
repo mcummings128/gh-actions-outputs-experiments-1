@@ -1,5 +1,5 @@
 # gh-actions-outputs-experiments
-Experiments with Github Actions outputs in various scenarios. This repository is a supplement to the article 'TODO ARTICLE NAME' TODO LINK
+Experiments with Github Actions outputs in various scenarios. This repository is a supplement to the article 'TODO ARTICLE NAME' TODO LINK. A lot of the text written in this README has been lifted to write the article, so be sure to read this too!
 
 # Outputs: Summary
 
@@ -37,6 +37,7 @@ echo "This is the first line of a multi-line output." >> $GITHUB_OUTPUT
 echo "This is the second line of a multi-line output." >> $GITHUB_OUTPUT
 echo "EOF" >> $GITHUB_OUTPUT
 ```
+
 ## More details about GITHUB_OUTPUT (Optional)
 
 `GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's a runner-provided environment file that is technically different (i.e. its path is different) per step. Writing to GITHUB_OUTPUT is considered a workflow command, just like writing to GITHUB_ENV. Workflow commands are executed via using `echo` or by writing to a file--for GITHUB_OUTPUT, it's obviously the latter. 
