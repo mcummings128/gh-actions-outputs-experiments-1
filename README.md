@@ -48,8 +48,7 @@ echo "EOF" >> $GITHUB_OUTPUT
 3. `key=value` pairs are parsed and converted into step outputs syntax (`steps.<step-id>.outputs.<name-of-output>`)
 
 
-
-TODO ELABORATE LENGTH, CONTENT, EXAMPLES OF OUTPUTS
+TODO CONTENT, EXAMPLES OF OUTPUTS
 
 # The outputs block
 
