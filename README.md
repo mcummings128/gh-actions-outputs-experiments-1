@@ -98,9 +98,13 @@ You'll notice that the output name example-output-1 is the same at both the step
 TODO FILL THIS IN
 
 The outputs block is present at workflow-level/top-level in two different scenarios:
+
 - In a reusable workflow
 - In a composite action
 
+### Reusable workflows
+
+The outputs block in a reusable workflow is a child of workflow_call. Outputs
 # Passing Outputs between different entities
 
 The whole point of outputs is to set them in one place, and utilize them in another. While a workflow step is reponsible for setting the value of an output, it is common to say something like "this workflow/job/action sets this output" or "this step/workflow/job/action uses the output." Thus the use of "entities" in the header for this section--an "entity" can can mean a step, job, workflow, or composite action. 
