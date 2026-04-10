@@ -24,7 +24,9 @@ jobs:
                 above-output: ${{ steps.set-output.outputs.single-line-output }}
               # printf is another way to output statements. The %s is a placeholder for a string, which is essentially an argument. 
               # The second string must be in its own set of quotes to be properly read as an argument. 
-              run: printf "Output from the same job is ${YELLOW}%s${END_COLOR}\n" "${{env.above-output}}"
+              run: |
+                printf "env.above-output was set to the output of the above step!"
+                printf "Output from the same job is ${YELLOW}%s${END_COLOR}\n" "${{env.above-output}}"
             
             - name: Set multi-line output
               id: set-multi-line-output
