@@ -2,8 +2,8 @@ name: "Set Output Composite Action"
 description: "Composite action that sets an output named 'composite-action-output'."
 outputs:
   composite-action-output:
-    description: "The output produced by the action"
     value: ${{ steps.set-output.outputs.composite-action-output }}
+    # description: "The output produced by the action"
 runs:
   using: "composite"
   steps:
