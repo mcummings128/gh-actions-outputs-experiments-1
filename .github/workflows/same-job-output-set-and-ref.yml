@@ -19,6 +19,10 @@ jobs:
               run: echo 'single-line-output=This single-line output is set and referenced in the same workflow job!' >> $GITHUB_OUTPUT
             
             - name: Use env var to reference single-line output that was set in the same job
+              run: |
+                printf "Output of previous step is ${YELLOW}%s${END_COLOR}\n" "${{ steps.set-output.outputs.single-line-output }}"
+            
+            - name: Use env var to reference single-line output that was set in the same job
               # You don't need to set an output as an environment variable to reference it in the same job, this just demonstrates that it can be done.
               env: 
                 above-output: ${{ steps.set-output.outputs.single-line-output }}
