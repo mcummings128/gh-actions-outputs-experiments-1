@@ -9,9 +9,7 @@ jobs:
     job-that-sets-output:
         runs-on: ubuntu-latest
         outputs:
-            job-output: 
-                description: "This should break"
-                value: ${{ steps.set-output-step.outputs.step-output }}
+            job-output: ${{ steps.set-output-step.outputs.step-output }}
         steps:
             - name: Set output 
               id: set-output-step
