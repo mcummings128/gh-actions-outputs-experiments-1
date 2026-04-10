@@ -97,8 +97,9 @@ You'll notice that the output name example-output-1 is the same at both the step
 
 TODO FILL THIS IN
 
-The outputs block is present at workflow-level in two different scenarios:
--
+The outputs block is present at workflow-level/top-level in two different scenarios:
+- In a reusable workflow
+- In a composite action
 
 # Passing Outputs between different entities
 
