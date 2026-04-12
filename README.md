@@ -3,7 +3,9 @@ Experiments with Github Actions outputs in various scenarios. This repository is
 
 # Outputs: Summary
 
-In Github Actions, outputs are used to pass small pieces of data from one job/workflow step to another (not necessarily the same workflow). It's important to note that outputs are strings
+In Github Actions, outputs are used to pass small pieces of data from one job/workflow step to another (not necessarily the same workflow). It's important to note that outputs are strings. They're usually one line, but can be multi-lined on occasion. 
+
+TODO CONTENT, EXAMPLES OF OUTPUTS
 
 # Setting an output
 
@@ -46,9 +48,6 @@ echo "EOF" >> $GITHUB_OUTPUT
 1. The GITHUB_OUTPUT file is written to
 2. After the step finishes, the runner reads the file
 3. `key=value` pairs are parsed and converted into step outputs syntax (`steps.<step-id>.outputs.<name-of-output>`)
-
-
-TODO CONTENT, EXAMPLES OF OUTPUTS
 
 # The outputs block
 
