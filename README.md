@@ -94,12 +94,12 @@ You'll notice that the output name example-output-1 is the same at both the step
 
 ## At workflow-level (top-level)
 
-TODO FILL THIS IN
-
 The outputs block is present at workflow-level/top-level in two different scenarios:
 
 - In a reusable workflow
 - In a composite action
+
+TODO ELABORATE
 
 ### Reusable workflows
 
