@@ -202,8 +202,6 @@ Outputs are defined at the top-level in the action.yml (An action.yml technicall
 
 ### Process
 
-TODO ENUMERATE
-
 Since composite actions do not have a job (again, they're a bundle of job-agnostic steps), the `outputs` block references a step id directly (instead of having to reference a job) to get the output. 
 
 1. In the caller workflow, a step (with an id) job calls the composite action. 
