@@ -103,7 +103,7 @@ In both of these scenarios, the outputs block has __is__ nested. Instead of a `k
 
 ### Reusable workflows
 
-The outputs block in a reusable workflow is a child of workflow_call. Outputs
+The outputs block in a reusable workflow is a child of workflow_call. This outputs block can map outputs from a job-level outputs block, if present. See TODO SECTION for more information.
 
 # Passing Outputs between different entities
 
