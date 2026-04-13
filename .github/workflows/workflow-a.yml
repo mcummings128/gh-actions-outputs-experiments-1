@@ -1,11 +1,8 @@
-# TODO DESCRIBE! OUTERMOST
+# This is the OUTERMOST workflow. It calls workflow-b, which in turn calls workflow-c.
 
 on:
 
     workflow_dispatch:
-
-    # This is only here to get the workflow to show up in the UI initially.
-    # push:
 
 jobs:
     call-workflow-b:
