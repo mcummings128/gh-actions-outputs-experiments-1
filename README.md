@@ -103,9 +103,9 @@ In both of these scenarios, the outputs block has __is__ nested. Instead of a `k
 
 ### Reusable workflows
 
-The outputs block in a reusable workflow is a child of workflow_call. This outputs block can map outputs from a job-level outputs block, if present. See TODO SECTION for more information.
+The outputs block in a reusable workflow is a child of workflow_call. This outputs block can map outputs from a job-level outputs block, if present. See **__Passing Outputs between different entities: From reusable workflow and caller workflow__** for more information.
 
-# Passing Outputs between different entities
+# Passing outputs between different entities
 
 The whole point of outputs is to set them in one place, and utilize them in another. While a workflow step is reponsible for setting the value of an output, it is common to say something like "this workflow/job/action sets this output" or "this step/workflow/job/action uses the output." Thus the use of "entities" in the header for this section--an "entity" can can mean a step, job, workflow, or composite action. 
 
