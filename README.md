@@ -69,7 +69,7 @@ example-job:
 
 The above is an example of a job-level outputs block. Witness how nothing is nested, as well as the general syntax.
 
-## At job level
+## At job-level
 
 When the outputs block is defined at the job-level (see previous section for an example), it will always reference a step id. The step id is used to point to where the output is getting its value from. 
 
@@ -99,11 +99,12 @@ The outputs block is present at workflow-level/top-level in two different scenar
 - In a reusable workflow
 - In a composite action
 
-TODO ELABORATE
+In both of these scenarios, the outputs block has __is__ nested. Instead of a `key-name=value` syntax, the key is on its own level, having an optional `description` key and a required `value` key. 
 
 ### Reusable workflows
 
 The outputs block in a reusable workflow is a child of workflow_call. Outputs
+
 # Passing Outputs between different entities
 
 The whole point of outputs is to set them in one place, and utilize them in another. While a workflow step is reponsible for setting the value of an output, it is common to say something like "this workflow/job/action sets this output" or "this step/workflow/job/action uses the output." Thus the use of "entities" in the header for this section--an "entity" can can mean a step, job, workflow, or composite action. 
@@ -146,6 +147,7 @@ To explain this process, imagine this example scenario: There is a 'Job A' whose
 
 ### `outputs` block Location
 
+TODO EDIT 
 The `outputs` block is defined at the job level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output. In the reusable workflow, the `outputs` block is defined at the workflow level AND another at the job level. It should be noted that the `outputs` block is a direct child of workflow_call.
 
 ### Process
