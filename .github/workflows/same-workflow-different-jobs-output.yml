@@ -2,9 +2,6 @@ on:
 
     workflow_dispatch:
 
-    # This is only here to get the workflow to show up in the UI initially.
-    push:
-
 jobs:
     job-that-sets-output:
         runs-on: ubuntu-latest
