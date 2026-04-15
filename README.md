@@ -157,9 +157,13 @@ A pure caller workflow (that is a workflow that only calls reusable workflows, a
 
 A mixed caller workflow will always have an `outputs` block defined at the workflow level so it can pass its outputs to the caller workflow that called it. As a mixed caller workflow is a type of reusable workflow, it may or may not also have a job-level outputs block (see below section for more information)
 
+TODO ELABORATE
+
 #### **Reusable Workflow** 
 
 For reusable workflows, the `outputs` block has the potential to be defined at the workflow level AND at the job level. In other words, there is a potential for multiple `outputs` blocks. At workflow-level, the `outputs` block is a direct child of workflow_call. 
+
+TODO ELABORATE
 
 ### Process
 
