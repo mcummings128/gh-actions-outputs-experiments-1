@@ -1,4 +1,4 @@
-# This is the innermost workflow when it comes to workflow-a, workflow-b, and workflow-c. It is called by workflow-b, which is in turn called by workflow-a. 
+# This is the INNERMOST workflow when it comes to workflow-a, workflow-b, and workflow-c. It is called by workflow-b, which is in turn called by workflow-a. 
 # The output of this workflow is passed to workflow-b, which then passes it to workflow-a.
 
 on:

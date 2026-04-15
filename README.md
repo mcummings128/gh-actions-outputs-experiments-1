@@ -51,6 +51,8 @@ echo "EOF" >> $GITHUB_OUTPUT
 
 # The outputs block
 
+TODO INCORPORATE OR DELETE THIS-->The `outputs` block is defined at the job-level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output.
+
 The outputs block is used to define the outputs. It's need when passing outputs almost anywhere, except when passing outputs between steps in the same workflow job. When utilized, the outputs block can be present at job-level, workflow-level/top-level, or both depending on the context. 
 
 It's important to note the outputs block gets its values at the __end__ of a job, not during/incrementally. While knowing this distinction usually isn't necessary during most output setup, it's good to remember when thinking about how outputs get set conceptually.
@@ -147,8 +149,17 @@ To explain this process, imagine this example scenario: There is a 'Job A' whose
 
 ### `outputs` block Location
 
-TODO EDIT 
-The `outputs` block is defined at the job level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output. In the reusable workflow, the `outputs` block is defined at the workflow level AND another at the job level. It should be noted that the `outputs` block is a direct child of workflow_call.
+Before continuing, note that a reusable workflow can itself function as a caller workflow. We shall refer to such a workflow as a 'mixed reusable workflow' or 'mixed caller workflow'. This is opposed to a 'pure caller workflow'--that is, a workflow that only calls reusable workflows, and is NOT called itself.  
+
+#### **Caller Workflow** 
+
+A pure caller workflow (that is a workflow that only calls reusable workflows, and is NOT called itself) does not necessarily need an outputs block--for example, see `workflow-a.yml`. That workflow's first job `call-workflow-b` calls a reusable workflow (which sets an output that `call-workflow-b` will have access to). `call-workflow-b` does not need to set any other output, so the other job in workflow `workflow-a.yml` can reference `call-workflow-b`'s output directly.
+
+A mixed caller workflow will always have an `outputs` block defined at the workflow level so it can pass its outputs to the caller workflow that called it. As a mixed caller workflow is a type of reusable workflow, it may or may not also have a job-level outputs block (see below section for more information)
+
+#### **Reusable Workflow** 
+
+For reusable workflows, the `outputs` block has the potential to be defined at the workflow level AND at the job level. In other words, there is a potential for multiple `outputs` blocks. At workflow-level, the `outputs` block is a direct child of workflow_call. 
 
 ### Process
 
