@@ -5,7 +5,7 @@ Experiments with Github Actions outputs in various scenarios. This repository is
 
 In Github Actions, outputs are used to pass small pieces of data from one job/workflow step to another (not necessarily the same workflow). It's important to note that outputs are strings. They're usually one line, but can be multi-lined on occasion. 
 
-TODO CONTENT, EXAMPLES OF OUTPUTS
+The contents of an output depend on the use case, but common examples include things like version numbers, text versions of booleans (often tied to success/failure of some activity), commit SHAs, filepaths, and even temporary keys/tokens.
 
 # Setting an output
 
@@ -51,9 +51,12 @@ echo "EOF" >> $GITHUB_OUTPUT
 
 # The outputs block
 
-TODO INCORPORATE OR DELETE THIS-->The `outputs` block is defined at the job-level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output.
 
-The outputs block is used to define the outputs. It's need when passing outputs almost anywhere, except when passing outputs between steps in the same workflow job. When utilized, the outputs block can be present at job-level, workflow-level/top-level, or both depending on the context. 
+The outputs block is used to define the outputs. It's needed when passing outputs almost anywhere, except when passing outputs between steps in the same workflow job. 
+
+Generally, the job-level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output (See the above **__Setting an output__** section).
+
+When utilized, the outputs block can be present at job-level, workflow-level/top-level, or both depending on the context (see the various scenarios under **__Passing outputs between different entities__** for more information). 
 
 It's important to note the outputs block gets its values at the __end__ of a job, not during/incrementally. While knowing this distinction usually isn't necessary during most output setup, it's good to remember when thinking about how outputs get set conceptually.
 
