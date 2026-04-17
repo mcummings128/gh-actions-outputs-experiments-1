@@ -158,15 +158,13 @@ Before continuing, note that a reusable workflow can itself function as a caller
 
 A pure caller workflow (that is a workflow that only calls reusable workflows, and is NOT called itself) does not necessarily need an outputs block--for example, see `workflow-a.yml`. That workflow's first job `call-workflow-b` calls a reusable workflow (which sets an output that `call-workflow-b` will have access to). `call-workflow-b` does not need to set any other output, so the other job in workflow `workflow-a.yml` can reference `call-workflow-b`'s output directly.
 
-A mixed caller workflow will always have an `outputs` block defined at the workflow level so it can pass its outputs to the caller workflow that called it. As a mixed caller workflow is a type of reusable workflow, it may or may not also have a job-level outputs block (see below section for more information)
-
-TODO ELABORATE
+A mixed reusable workflow/mixed caller workflow will always have an `outputs` block defined at the workflow level so it can pass its outputs to the caller workflow that called it. As a mixed caller workflow is a type of reusable workflow, it may or may not also have a job-level outputs block (see below section for more information)
 
 #### **Reusable Workflow** 
 
-For reusable workflows, the `outputs` block has the potential to be defined at the workflow level AND at the job level. In other words, there is a potential for multiple `outputs` blocks. At workflow-level, the `outputs` block is a direct child of workflow_call. 
+For reusable workflows, the `outputs` block has the potential to be defined at the workflow level AND at the job level. In other words, there is a potential for multiple `outputs` blocks. At workflow-level, the `outputs` block is a direct child of `workflow_call`. 
 
-TODO ELABORATE
+A reusable workflow will have a job-level outputs block when it has a job that directly sets an output via the typical writing to GITHUB_OUTPUT (see TODO section). It will not need a job-level outputs block if it is not setting any outputs. Additionally, it will not need a job-level outputs block if it is calling another reusable workflow to get an output, even if it has other jobs that may need to access that output (similar to a pure caller workflow; see the first paragraph in the **__Caller Workflow__** section above). 
 
 ### Process
 
