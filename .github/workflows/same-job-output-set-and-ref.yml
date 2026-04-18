@@ -1,3 +1,5 @@
+# This workflow shows how an output can be set in one job, then referenced later in the SAME job
+
 on:
 
     workflow_dispatch:
