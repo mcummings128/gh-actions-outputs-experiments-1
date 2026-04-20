@@ -42,10 +42,10 @@ echo "EOF" >> $GITHUB_OUTPUT
 
 ## More details about GITHUB_OUTPUT (Optional)
 
-`GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's a runner-provided environment file that is technically different (i.e. its path is different) per step. Writing to GITHUB_OUTPUT is considered a workflow command, just like writing to GITHUB_ENV. Workflow commands are executed via using `echo` or by writing to a file--for GITHUB_OUTPUT, it's obviously the latter. 
+`GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's a runner-provided environment file that is technically different (i.e. its path is different) per step. Writing to GITHUB_OUTPUT is considered a workflow command, just like writing to GITHUB_ENV. Workflow commands are executed via using `echo` or by writing to a file--for `GITHUB_OUTPUT`, it's obviously the latter. 
 
 `GITHUB_OUTPUT` can be viewed as a vector of how outputs get stored/referencable in outputs syntax. It's a bit hard to find sources on this (try the actions/runner repo), but generally what happens is that:
-1. The GITHUB_OUTPUT file is written to
+1. The `GITHUB_OUTPUT` file is written to
 2. After the step finishes, the runner reads the file
 3. `key=value` pairs are parsed and converted into step outputs syntax (`steps.<step-id>.outputs.<name-of-output>`)
 
@@ -62,7 +62,7 @@ It's important to note the outputs block gets its values at the __end__ of a job
 
 ## General structure
 
-The outputs block is a map/dictionary/hash that is un-nested--that is, all key value pairs are at the top level.
+The `outputs` block is a map/dictionary/hash that is un-nested--that is, all key value pairs are at the top level.
 For example:
 
 ```
@@ -76,7 +76,7 @@ The above is an example of a job-level outputs block. Witness how nothing is nes
 
 ## At job-level
 
-When the outputs block is defined at the job-level (see previous section for an example), it will always reference a step id. The step id is used to point to where the output is getting its value from. 
+When the `outputs` block is defined at the job-level (see previous section for an example), it will always reference a step id. The step id is used to point to where the output is getting its value from. 
 
 Consider the following line:
 ```example-output-1: ${{steps.<step-id>.outputs.<output-name>}}```
