@@ -1,5 +1,5 @@
 
-# This is the 'middle' workflow. It is called by workflow-a, and it calls workflow-c.
+# This is the 'middle' workflow. It is called by workflow-a, and calls workflow-c.
 on:
   workflow_call:
     outputs:
