@@ -11,4 +11,4 @@ runs:
       id: set-output
       shell: bash
       run: |
-        echo "composite-action-output=Hello from composite action!" >> $GITHUB_OUTPUT
+        echo "composite-action-output=Hello from composite action!!" >> $GITHUB_OUTPUT
