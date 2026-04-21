@@ -164,7 +164,7 @@ A mixed reusable workflow/mixed caller workflow will always have an `outputs` bl
 
 For reusable workflows, the `outputs` block has the potential to be defined at the workflow level AND at the job level. In other words, there is a potential for multiple `outputs` blocks. At workflow-level, the `outputs` block is a direct child of `workflow_call`. 
 
-A reusable workflow will have a job-level outputs block when it has a job that directly sets an output via the typical writing to GITHUB_OUTPUT (see TODO section). It will not need a job-level outputs block if it is not setting any outputs. Additionally, it will not need a job-level outputs block if it is calling another reusable workflow to get an output, even if it has other jobs that may need to access that output (similar to a pure caller workflow; see the first paragraph in the **__Caller Workflow__** section above). 
+A reusable workflow will have a job-level `outputs` block when it has a job that directly sets an output via the typical writing to GITHUB_OUTPUT (see **__Setting an output__** section). It will not need a job-level `outputs` block if it is not setting any outputs. Additionally, it will not need a job-level `outputs` block if it is calling another reusable workflow to get an output, even if it has other jobs that may need to access that output (similar to a pure caller workflow; see the first paragraph in the **__Caller Workflow__** section above). 
 
 ### Process
 
@@ -175,9 +175,9 @@ A reusable workflow will have a job-level outputs block when it has a job that d
 <ins>Reusable workflow</ins>
 
 1. A step (with an `id`) within a reusable workflow job sets the output value. 
-2. Once the job is complete, the job-level `outputs` block sets the value of its output by referencing the step id 
+2. Once the job is complete, the job-level `outputs` block sets the value of its output by referencing the step `id` 
 and output name (ex. `steps.rw-step-id.outputs.example-rw-step-output`). 
-3. The workflow-level `outputs` block gets its value from the job-level output (ex. jobs.rw-job-id.outputs.example-rw-job-output). It is important to emphasize this happens AFTER any job-level blocks are resolved. 
+3. The workflow-level `outputs` block gets its value from the job-level output (ex. `jobs.rw-job-id.outputs.example-rw-job-output`). It is important to emphasize this happens AFTER any job-level blocks are resolved. 
 
 ## Chained Reusable Workflows
 
