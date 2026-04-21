@@ -200,12 +200,13 @@ Passing outputs between chained reusable workflows can be a confusing thing to r
 The cadence of calls is `workflow-a --calls--> workflow-b --calls--> workflow-c`
 
 `workflow-a` can get the output from `workflow-c` like so:
-1. `workflow-c` has both a job-level and workflow-level `outputs` block. A job with the id `set-workflow-c-output-job` has a step that sets an output which the job-level `outputs` block references. 
-2. `workflow-c`'s workflow-level `outputs` block references the job-level reference so the output can be passed to a caller workflow.
-2. `workflow-b` has a job with the ID of 'b-job-1' set up to call `workflow-c`. A subsequent job in `workflow-b` with the ID `b-job-2` has a job-level `outputs` block. 
-A workflow-level `outputs` block references the value from the job-level `outputs` block. `workflow-b` is also resuable (`workflow-a` calls it), thus the need for the workflow-level `outputs` block. Note `workflow-b` does NOT need a job-level `outputs` block because `workflow-c`'s `outputs` are already exposed at the job-level?
-b-job-2 has a step with the ID 'get-output-from-b-job-1' uses 'needs' and b-job-1's id to get the output from b-job-1. b-job-2's job-level `outputs` block will reference the step ID 'get-output-from-b-job-1' to get the value of the output. 
-3. `workflow-a` has a job with the ID 'call-`workflow-b`' which shockingly, calls `workflow-b`. `workflow-a` has another job which uses uses 'needs' and call-`workflow-b`'s id to get the output from call-`workflow-b`. 
+1. `workflow-a` has a job with the ID `call-workflow-b` which shockingly, calls `workflow-b`. 
+(`workflow-a` has another job `echo-output-from-b` which uses uses `needs` and call-`workflow-b`'s id to get the output from call-`workflow-b`.) 
+2. `workflow-b` has a job with the ID of `get-workflow-c-output` which calls `workflow-c`.
+3. `workflow-c` has both a job-level and workflow-level `outputs` block. A job with the id `set-workflow-c-output-job` has a step that sets an output which the job-level `outputs` block references. When the job finishes, the __job-level__ outputs block `workflow-c-output` is assigned a value.
+4. After `set-workflow-c-output-job` completes, `workflow-c`'s workflow-level `outputs` block references the job-level `workflow-c-output` reference, so that the __workflow-level__ `workflow-c-output` can be given a value and thus be passed to a caller workflow. 
+5. After the `get-workflow-c-output` job is complete, the workflow-level outputs block in `workflow-b` gets the value of `workflow-c-output` via referencing `get-workflow-c-output` like so `jobs.get-workflow-c-output.outputs.workflow-c-output`
+6. `workflow-a`'s echo-output-from-b job fires since `call-workflow-b` completed. It is able to reference  `workflow-c-output` since this is made available via calling `workflow-b`
 
 ## Caller workflow and composite action:
 
