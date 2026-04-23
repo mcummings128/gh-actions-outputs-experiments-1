@@ -10,7 +10,8 @@ jobs:
         # If you only needed the output within the same job, you wouldn't need this outputs block.
         # We know the name of the step output to reference by looking at the action.yml of the composite action that is being called
         outputs:
-            composite-action-output: ${{ steps.composite-calling-step.outputs.composite-action-output }}
+            composite-action-output-1: ${{ steps.composite-calling-step.outputs.composite-action-output-1 }}
+            composite-action-output-2: ${{ steps.composite-calling-step.outputs.composite-action-output-2 }}
         steps:
             
             - name: 'Checkout repo'
@@ -32,4 +33,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Show composite action output (different job)
-              run: echo 'We are able to access the composite action output from the previous job --> ${{ needs.call-composite-action.outputs.composite-action-output }}'
+              run: echo 'We are able to access the composite action output from the previous job --> ${{ needs.call-composite-action.outputs.composite-action-output-1 }}'
