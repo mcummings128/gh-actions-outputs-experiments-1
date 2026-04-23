@@ -1,4 +1,5 @@
 name: "Set Output Composite Action"
+description: "Composite action that sets an output named 'composite-action-output'."
 outputs:
   composite-action-output:
     description: "The output produced by the action"
@@ -10,4 +11,4 @@ runs:
       id: set-output
       shell: bash
       run: |
-        echo "composite-action-output=Hello from composite action!!" >> $GITHUB_OUTPUT
+        echo "composite-action-output=Hello from composite action!" >> $GITHUB_OUTPUT
