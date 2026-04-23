@@ -11,13 +11,13 @@ runs:
   using: "composite"
   steps:
     - name: Set composite action output 1
-      id: set-output
+      id: set-output-1
       shell: bash
       run: |
         echo "composite-action-output-1=Hello from composite action!" >> $GITHUB_OUTPUT
     
     - name: Set composite action output 2
-      id: set-output
+      id: set-output-2
       shell: bash
       run: |
         echo "composite-action-output-2=Output 2 from composite action!" >> $GITHUB_OUTPUT
