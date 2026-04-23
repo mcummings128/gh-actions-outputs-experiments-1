@@ -20,8 +20,11 @@ jobs:
               id: composite-calling-step
               uses: ./.github/actions/composite-output-action
             
-            - name: Show composite action output (same job)
-              run: echo 'Composite action output --> ${{ steps.composite-calling-step.outputs.composite-action-output }}'
+            - name: Show composite action output 1 (same job)
+              run: echo 'Composite action output 1 --> ${{ steps.composite-calling-step.outputs.composite-action-output-1 }}'
+           
+            - name: Show composite action output 2 (same job)
+              run: echo 'Composite action output 2 --> ${{ steps.composite-calling-step.outputs.composite-action-output-2 }}'
 
     # This job shows how to reference the composite action output from a different job, (by referencing the job-level outputs block in the previous job).
     ref-composite-action-output:

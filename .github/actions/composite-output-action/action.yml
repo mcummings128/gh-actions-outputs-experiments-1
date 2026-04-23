@@ -1,14 +1,23 @@
 name: "Set Output Composite Action"
 description: "Composite action that sets an output named 'composite-action-output'."
 outputs:
-  composite-action-output:
-    description: "The output produced by the action"
-    value: ${{ steps.set-output.outputs.composite-action-output }}
+  composite-action-output-1:
+    description: "The output produced by the action (1)"
+    value: ${{ steps.set-output.outputs.composite-action-output-1 }}
+  composite-action-output-2:
+    description: "The output produced by the action (2)"
+    value: ${{ steps.set-output.outputs.composite-action-output-2 }}
 runs:
   using: "composite"
   steps:
-    - name: Set composite action output
+    - name: Set composite action output 1
       id: set-output
       shell: bash
       run: |
-        echo "composite-action-output=Hello from composite action!" >> $GITHUB_OUTPUT
+        echo "composite-action-output-1=Hello from composite action!" >> $GITHUB_OUTPUT
+    
+    - name: Set composite action output 2
+      id: set-output
+      shell: bash
+      run: |
+        echo "composite-action-output-2=Output 2 from composite action!" >> $GITHUB_OUTPUT
