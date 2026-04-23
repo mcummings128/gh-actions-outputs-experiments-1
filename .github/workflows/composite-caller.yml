@@ -23,7 +23,7 @@ jobs:
             - name: Show composite action output (same job)
               run: echo 'Composite action output --> ${{ steps.composite-calling-step.outputs.composite-action-output }}'
 
-    # This job is more for completion's sake. It just shows how to reference the composite action output from a different job, (by referencing the job-level outputs block in the previous job).
+    # This job shows how to reference the composite action output from a different job, (by referencing the job-level outputs block in the previous job).
     ref-composite-action-output:
         needs: call-composite-action
         runs-on: ubuntu-latest
