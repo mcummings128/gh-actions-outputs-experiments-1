@@ -1,5 +1,5 @@
 # gh-actions-outputs-experiments
-Experiments with Github Actions outputs in various scenarios. This repository is a supplement to the article 'Github Actions: TODO NAME' TODO LINK. A lot of the text written in this README has been lifted to write the article, so be sure to read this too!
+Experiments with Github Actions outputs in various scenarios. This repository is a supplement to the article 'Github Actions: Almost Everything You Need To Know About Outputs' TODO LINK. A lot of the text written in this README has been lifted to write the article, so be sure to look at both.
 
 # Outputs: Summary
 
@@ -29,7 +29,7 @@ The following syntax is used to set a single-line output (pay particular attenti
 
 # Multi-line output
 
-Multi-line outputs can be set by treating the multi-line string as a here document (a piece of code that gets treated as if it were input/a file). Combined with EOF (End of File) syntax one can feed the multi-line string to `GITHUB_OUTPUT`. Using EOF is possible across all types of Github-hosted runners (`ubuntu-*` (Bash), `windows-*` (Powershell), and `macos-*` (Mac) (bash) )
+Multi-line outputs can be set by treating the multi-line string as a here document (a piece of code that gets treated as if it were input/a file). Combined with `EOF` (End of File) syntax one can feed the multi-line string to `GITHUB_OUTPUT`. Using `EOF` is possible across all types of Github-hosted runners (`ubuntu-*` (Bash), `windows-*` (Powershell), and `macos-*` (Mac) (bash) )
 
 The below syntax shows how to set a multi-line output from a Bash perspective:
 
@@ -42,7 +42,7 @@ echo "EOF" >> $GITHUB_OUTPUT
 
 ## More details about GITHUB_OUTPUT (Optional)
 
-`GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's a runner-provided environment file that is technically different (i.e. its path is different) per step. Writing to GITHUB_OUTPUT is considered a workflow command, just like writing to GITHUB_ENV. Workflow commands are executed via using `echo` or by writing to a file--for `GITHUB_OUTPUT`, it's obviously the latter. 
+`GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's a runner-provided environment file that is technically different (i.e. its path is different) per step. Writing to `GITHUB_OUTPUT` is considered a workflow command (TODO LINK), just like writing to `GITHUB_ENV`. Workflow commands are executed via using `echo` or by writing to a file--for `GITHUB_OUTPUT`, it's obviously the latter. 
 
 `GITHUB_OUTPUT` can be viewed as a vector of how outputs get stored/referencable in outputs syntax. It's a bit hard to find sources on this (try the actions/runner repo), but generally what happens is that:
 1. The `GITHUB_OUTPUT` file is written to
