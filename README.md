@@ -42,7 +42,7 @@ echo "EOF" >> $GITHUB_OUTPUT
 
 ## More details about GITHUB_OUTPUT (Optional)
 
-`GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's a runner-provided environment file that is technically different (i.e. its path is different) per step. Writing to `GITHUB_OUTPUT` is considered a workflow command (TODO LINK), just like writing to `GITHUB_ENV`. Workflow commands are executed via using `echo` or by writing to a file--for `GITHUB_OUTPUT`, it's obviously the latter. 
+`GITHUB_OUTPUT` is the variable that represents a special Github Actions-specific file. It's a runner-provided environment file that is technically different (i.e. its path is different) per step. Writing to `GITHUB_OUTPUT` is considered a [workflow command] (https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands), just like writing to `GITHUB_ENV`. Workflow commands are executed via using `echo` or by writing to a file--for `GITHUB_OUTPUT`, it's obviously the latter. 
 
 `GITHUB_OUTPUT` can be viewed as a vector of how outputs get stored/referencable in outputs syntax. It's a bit hard to find sources on this (try the actions/runner repo), but generally what happens is that:
 1. The `GITHUB_OUTPUT` file is written to
