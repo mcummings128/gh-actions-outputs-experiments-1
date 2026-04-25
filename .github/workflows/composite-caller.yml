@@ -32,5 +32,5 @@ jobs:
         needs: call-composite-action
         runs-on: ubuntu-latest
         steps:
-            - name: Show composite action output (different job)
+            - name: Show composite action output 1 (different job)
               run: echo 'We are able to access the composite action output from the previous job --> ${{ needs.call-composite-action.outputs.composite-action-output-1 }}'
