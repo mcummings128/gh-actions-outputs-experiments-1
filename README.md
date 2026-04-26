@@ -52,7 +52,7 @@ echo "EOF" >> $GITHUB_OUTPUT
 # The outputs block
 
 
-The outputs block is used to define the outputs. It's needed when passing outputs almost anywhere, except when passing outputs between steps in the same workflow job. 
+The `outputs` block is used to define the outputs. It's needed when passing outputs almost anywhere, except when passing outputs between steps in the same workflow job. 
 
 Generally, the job-level (of the job whose step(s) set an output). The `outputs` block defines the value of the output by referencing the step that is setting the output (See the above **__Setting an output__** section).
 
@@ -82,7 +82,7 @@ Consider the following line:
 ```example-output-1: ${{steps.<step-id>.outputs.<output-name>}}```
 
 Note: <> used to signify placeholder values. You don't use <> in actual references.
-This is saying "set a job-level output named 'example-output-1' to the value being written to GITHUB_OUTPUT in the step with the id <step-id>. The step may be setting multiple outputs at once, so be sure to set example-output-1 to the value <output-name> is being set to in the step"
+This is saying "set a job-level output named 'example-output-1' to the value being written to `GITHUB_OUTPUT` in the step with the id <step-id>. The step may be setting multiple outputs at once, so be sure to set example-output-1 to the value <output-name> is being set to in the step"
 
 For example, say you had a step with the `id` `set-ex-output-1`
 ```- name: Set output
@@ -93,7 +93,7 @@ For example, say you had a step with the `id` `set-ex-output-1`
 Additionally, imagine the job-level outputs block has a line that looks like this:
 ```example-output-1: ${{steps.set-ex-output-1.outputs.example-output-1}}```
 
-Putting those lines together, to define the job-level output named example-output-1, the outputs block "looks" for the step with the id set-ex-output-1, then sees that it has a line where the output example-output-1 is written to GITHUB_OUTPUT. In other words, the step-level output gets mapped to the job-level output.
+Putting those lines together, to define the job-level output named `example-output-1`, the outputs block "looks" for the step with the id set-ex-output-1, then sees that it has a line where the output example-output-1 is written to `GITHUB_OUTPUT`. In other words, the step-level output gets mapped to the job-level output.
 
 You'll notice that the output name example-output-1 is the same at both the step-level and job-level. While that might seem confusing at first glance, this is actually a common approach. Keeping the naming consistent in this case actually makes the output setting/passing easier to follow. If desired, the outputs can be named differently if need be. If you wanted the step-level output name to be different, you would change it in the echo statement, and reflect that change in the corresponding reference.
 
