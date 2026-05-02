@@ -1,5 +1,5 @@
 # gh-actions-outputs-experiments
-Experiments with Github Actions outputs in various scenarios. This repository is a supplement to the article 'Github Actions: Almost Everything You Need To Know About Outputs' TODO LINK. A lot of the text written in this README has been lifted to write the article, so be sure to look at both.
+Experiments with Github Actions outputs in various scenarios. This repository is a supplement to the article ['Github Actions: Almost Everything You Need To Know About Outputs'](https://medium.com/p/4c6ddeee36d5). A lot of the text written in this README has been lifted to write the article, so be sure to look at both.
 
 # Outputs: Summary
 
